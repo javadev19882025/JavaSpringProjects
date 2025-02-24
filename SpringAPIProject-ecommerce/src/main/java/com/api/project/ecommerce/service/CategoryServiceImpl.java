@@ -85,6 +85,23 @@ public class CategoryServiceImpl implements CategoryService {
      * @return The created {@code CategoryDTO} object.
      * @throws APIException if a category with the same name already exists.
      */
+    
+	/*@Override
+	 * public CategoryDTO createCategory(CategoryDTO categoryDTO) { // Convert DTO
+	 * to entity CategoryModel categoryModel = modelMapper.map(categoryDTO,
+	 * CategoryModel.class);
+	 * 
+	 * // Check if category with the same name already exists CategoryModel
+	 * categoryFromDB =
+	 * categoryRepository.findByCategoryName(categoryModel.getCategoryName()); if
+	 * (categoryFromDB != null) { throw new APIException( "Category with the name "
+	 * + categoryModel.getCategoryName() + " already exists!"); }
+	 * 
+	 * // Save new category CategoryModel savedCategoryModel =
+	 * categoryRepository.save(categoryModel); return
+	 * modelMapper.map(savedCategoryModel, CategoryDTO.class); }
+	 */
+    
     @Override
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         if (categoryDTO == null || categoryDTO.getCategoryName() == null || categoryDTO.getCategoryName().trim().isEmpty()) {
@@ -109,6 +126,7 @@ public class CategoryServiceImpl implements CategoryService {
             throw new APIException("An error occurred while saving the category. Please check the input data.");
         }
     }
+
 
     /**
      * Creates multiple categories.

@@ -44,7 +44,7 @@ public class CategoryController {
 	 * @param sortOrder  Sorting order: 'asc' (ascending) or 'desc' (descending).
 	 * @return A paginated response containing category details.
 	 */
-	@GetMapping("/public/categories")
+	@GetMapping("/public/category")
 	public ResponseEntity<CategoryResponse> getAllCategories(
 			@RequestParam(name = "pageNumber", defaultValue = AppConstants.PAGE_NUMBER, required = false) Integer pageNumber,
 			@RequestParam(name = "pageSize", defaultValue = AppConstants.PAGE_SIZE, required = false) Integer pageSize,
@@ -61,7 +61,7 @@ public class CategoryController {
 	 * @param categoryDTO The category details provided in the request body.
 	 * @return The created category object.
 	 */
-	@PostMapping("/admin/createcategory")
+	@PostMapping("/admin/category")
 	public ResponseEntity<CategoryDTO> createCategory(@Valid @RequestBody CategoryDTO categoryDTO) {
 		CategoryDTO savedCategoryDTO = categoryService.createCategory(categoryDTO);
 		return new ResponseEntity<>(savedCategoryDTO, HttpStatus.CREATED);
@@ -73,7 +73,7 @@ public class CategoryController {
 	 * @param categoriesList A list of category objects to be created.
 	 * @return A list of created category objects.
 	 */
-	@PostMapping("/admin/createcategories")
+	@PostMapping("/admin/categories")
 	public ResponseEntity<List<CategoryDTO>> createMultipleCategories(
 			@Valid @RequestBody List<CategoryDTO> categoriesList) {
 		List<CategoryDTO> savedCategories = categoryService.createMultipleCategories(categoriesList);
@@ -86,7 +86,7 @@ public class CategoryController {
 	 * @param categoryId The ID of the category to be deleted.
 	 * @return The details of the deleted category.
 	 */
-	@DeleteMapping("/admin/deletecategory/{categoryId}")
+	@DeleteMapping("/admin/category/{categoryId}")
 	public ResponseEntity<CategoryDTO> removeCategory(@PathVariable Long categoryId) {
 		CategoryDTO deletedCategory = categoryService.removeCategory(categoryId);
 		return new ResponseEntity<>(deletedCategory, HttpStatus.OK);
@@ -99,7 +99,7 @@ public class CategoryController {
 	 * @param categoryDTO The updated category details.
 	 * @return The updated category object.
 	 */
-	@PutMapping("/admin/putcategories/{categoryId}")
+	@PutMapping("/admin/category/{categoryId}")
 	public ResponseEntity<CategoryDTO> updateCategory(@Valid @RequestBody CategoryDTO categoryDTO,
 			@PathVariable Long categoryId) {
 		CategoryDTO savedCategoryDTO = categoryService.updatecategory(categoryDTO, categoryId);

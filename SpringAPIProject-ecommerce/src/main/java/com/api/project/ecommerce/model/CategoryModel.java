@@ -41,14 +41,14 @@ public class CategoryModel {
     /**
      * Name of the category. Cannot be blank and must be at least 2 characters long.
      */
-    @NotBlank
+    @NotBlank(message = "Category name cannot be blank")
     @Size(min = 2, message = "Minimum 2 characters must be entered in the category name field")
     private String categoryName;
 
     /**
      * Type of the category. Cannot be blank and must be at least 2 characters long.
      */
-    @NotBlank
+    @NotBlank(message = "Category type cannot be blank")
     @Size(min = 2, message = "Minimum 2 characters must be entered in the category type field")
     private String categorytype;
 
