@@ -7,29 +7,47 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
-
 import org.springframework.web.multipart.MultipartFile;
 
+/**
+ * Service implementation for file operations such as image upload.
+ */
 @Service
 public class FileServiceImpl implements FileService {
 
-	@Override
-	public String uploadImage(String path, MultipartFile file) throws IOException {
+    /**
+     * Uploads an image to the specified directory.
+     *
+     * @param path The directory where the image should be stored.
+     * @param file The image file to be uploaded.
+     * @return The generated unique file name.
+     * @throws IOException If an I/O error occurs during file upload.
+     */
+    @Override
+    public String uploadImage(String path, MultipartFile file) throws IOException {
+        
+        // Get the original filename
+        String originalFileName = file.getOriginalFilename();
 
-		String originalFileName = file.getOriginalFilename();
-		String randomId = UUID.randomUUID().toString();
-		String fileName = randomId.concat(originalFileName.substring(originalFileName.lastIndexOf('.')));
-		String filePath = Paths.get(path, fileName).toString();
+        // Generate a unique identifier for the file
+        String randomId = UUID.randomUUID().toString();
 
-		File folder = new File(path);
+        // Create a new unique filename with the original file extension
+        String fileName = randomId.concat(originalFileName.substring(originalFileName.lastIndexOf('.')));
 
-		if (!folder.exists()) {
-			folder.mkdir();
-		}
+        // Construct the full file path
+        String filePath = Paths.get(path, fileName).toString();
 
-		Files.copy(file.getInputStream(), Paths.get(filePath));
+        // Create the directory if it does not exist
+        File folder = new File(path);
+        if (!folder.exists()) {
+            folder.mkdir();
+        }
 
-		return fileName;
-	}
+        // Copy the file to the specified location
+        Files.copy(file.getInputStream(), Paths.get(filePath));
 
+        // Return the generated unique filename
+        return fileName;
+    }
 }
